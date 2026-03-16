@@ -1,3 +1,7 @@
+/* --------------------------------------------------
+   GLOBAL LAYOUT
+-------------------------------------------------- */
+
 body {
   font-family: system-ui, sans-serif;
   max-width: 900px;
@@ -24,7 +28,10 @@ input, select, button {
   padding: 6px 8px;
 }
 
-/* Event Card */
+/* --------------------------------------------------
+   EVENT CARD
+-------------------------------------------------- */
+
 .event-card {
   border: 1px solid #ddd;
   padding: 10px;
@@ -45,7 +52,10 @@ input, select, button {
   margin-top: 4px;
 }
 
-/* Status Row */
+/* --------------------------------------------------
+   STATUS ROW
+-------------------------------------------------- */
+
 .status-row {
   display: flex;
   align-items: center;
@@ -54,7 +64,6 @@ input, select, button {
   margin-top: 6px;
 }
 
-/* Status Badges */
 .status-badge {
   padding: 4px 10px;
   border-radius: 6px;
@@ -63,15 +72,18 @@ input, select, button {
 }
 
 .status-badge.pending {
-  background: #fbc02d; /* yellow */
+  background: #fbc02d;
   color: #000;
 }
 
 .status-badge.on {
-  background: #2e7d32; /* green */
+  background: #2e7d32;
 }
 
-/* Vote Button */
+/* --------------------------------------------------
+   BUTTONS
+-------------------------------------------------- */
+
 .inline-vote {
   margin: 0;
 }
@@ -90,7 +102,6 @@ input, select, button {
   background: #0d47a1;
 }
 
-/* Delete Button */
 .danger {
   background: #c62828;
   color: white;
@@ -105,18 +116,19 @@ input, select, button {
   margin: 0;
 }
 
-/* Notes */
+/* --------------------------------------------------
+   NOTES
+-------------------------------------------------- */
+
 .note {
   font-style: italic;
   color: #555;
 }
 
-/* Past Games Fade */
-.past-status {
-  opacity: 0.7;
-}
+/* --------------------------------------------------
+   MANAGE LOCATIONS
+-------------------------------------------------- */
 
-/* Manage Locations */
 .location-row {
   display: flex;
   flex-wrap: wrap;
@@ -124,7 +136,10 @@ input, select, button {
   align-items: center;
 }
 
-/* Collapsible Past Games */
+/* --------------------------------------------------
+   COLLAPSIBLE PAST GAMES
+-------------------------------------------------- */
+
 .collapsible-header {
   cursor: pointer;
   user-select: none;
@@ -135,7 +150,66 @@ input, select, button {
   margin-top: 10px;
 }
 
-/* Mobile Optimization */
+/* --------------------------------------------------
+   SHARE ICON BUTTONS (GLOBAL)
+-------------------------------------------------- */
+
+.share-row {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.icon-btn {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: #eee;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+}
+
+.icon-btn:hover {
+  background: #ccc;
+}
+
+.icon {
+  width: 22px;
+  height: 22px;
+  fill: white;
+  stroke: white;
+}
+
+.icon-btn svg path {
+  stroke: white;
+}
+
+/* Brand colors */
+.icon-btn.whatsapp {
+  background: #25D366;
+}
+
+.icon-btn.messenger {
+  background: #0084FF;
+}
+
+.icon-btn.imessage {
+  background: #34C759;
+}
+
+.icon-btn.qr {
+  background: #000;
+}
+
+/* --------------------------------------------------
+   MOBILE OPTIMIZATION
+-------------------------------------------------- */
+
 @media (max-width: 600px) {
   .event-card {
     padding: 10px;
@@ -158,160 +232,8 @@ input, select, button {
     align-items: flex-start;
     gap: 4px;
   }
-.icon-btn {
-  width: 36px;
-  height: 36px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  border-radius: 6px;
-  text-decoration: none;
-  cursor: pointer;
-  border: none;
-  background: #eee;
-}
 
-.icon-btn:hover {
-  background: #ccc;
-}
-
-.icon-btn.whatsapp {
-  background: #25D366;
-  color: white;
-}
-
-.icon-btn.whatsapp:hover {
-  background: #1da851;
-}
-.icon-btn {
-  width: 38px;
-  height: 38px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  background: #eee;
-  cursor: pointer;
-  border: none;
-  text-decoration: none;
-}
-
-.icon-btn:hover {
-  background: #ccc;
-}
-
-.icon {
-  width: 22px;
-  height: 22px;
-}
-
-.icon-btn.whatsapp {
-  background: #25D366;
-}
-
-.icon-btn.messenger {
-  background: #0084FF;
-}
-
-.icon-btn.imessage {
-  background: #34C759;
-}
-
-.icon-btn.qr {
-  background: #000;
-}
-
-.share-row {
-  margin-top: 12px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-
-.icon-btn.messenger {
-  background: #0084FF;
-  color: white;
-}
-
-.icon-btn.messenger:hover {
-  background: #006cd1;
-}
-
-.icon-btn.imessage {
-  background: #34C759;
-  color: white;
-}
-
-.icon-btn.imessage:hover {
-  background: #28a745;
-}
-
-.icon-btn.qr {
-  background: #000;
-  color: white;
-}
-
-.icon-btn.qr:hover {
-  background: #333;
-}
-
-.share-row {
-  margin-top: 12px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.imessage-button {
-  background: #34C759; /* Apple green */
-  color: white;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-.imessage-button:hover {
-  background: #28a745;
-}
-
-.qr-button {
-  background: #000;
-  color: white;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-.qr-button:hover {
-  background: #333;
-}
-
-  .location-row input {
-    width: 100%;
-  }
-.share-row {
-  margin-top: 6px;
-}
-
-.share-button {
-  background: #555;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.share-button:hover {
-  background: #333;
-}
-
-
+  .location-row input,
   .location-row button {
     width: 100%;
   }
