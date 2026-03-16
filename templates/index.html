@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pickup Soccer</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h1>Pickup Soccer Scheduler</h1>
+
+  <section>
+    <h2>Add Location</h2>
+    <form method="post" action="{{ url_for('add_location') }}">
+      <input type="text" name="location_name" placeholder="Location name" required>
+      <input type="text" name="location_address" placeholder="Address" required>
+      <button type="submit">Save Location</button>
+    </form>
+  </section>
+
+  <section>
+    <h2>Create Event</h2>
+    <form method="post" action="{{ url_for('add_event') }}">
+      <select name="location_id" required>
+        <option value="">Select location</option>
+        {% for loc in locations %}
+          <option value="{{ loc.id }}">{{ loc.name }}</option>
+        {% endfor %}
+      </select>
+      <input type="date" name="date" required>
+      <input type="time" name="time" required>
+      <input type="number" name="target" min="1" placeholder="Target players (optional)">
+      <input type="text" name="note" placeholder="Note (optional)">
+      <button type="submit">Create Event</button>
+    </form>
+  </section>
+
+  <section>
+    <h2>Upcoming Games</h2>
+    {% if events %}
+      {% for e in events %}
+        <div class="event-card">
+          <div class="event-header">
+            <strong>{{ e.location.name }}</strong>
+            <a href="{{ e.location.map_url() }}" target="_blank" title="Open in Maps">🗺️</a>
+          </div>
+          <div>
+            {{ e.date_time.strftime("%a %b %d, %Y %I:%M %p") }}
+          </div>
+          {% if e.note %}
+            <div class="note">{{ e.note }}</div>
+          {% endif %}
+          <div class="status-row">
+            <span>{{ e.vote_count }} going</span>
+            {% if e.target %}
+              <span>Target: {{ e.target }}</span>
+              {% if e.is_on %}
+                <span class="badge-on">ON</span>
+              {% endif %}
+            {% endif %}
+          </div>
+          <form method="post" action="{{ url_for('vote_event', event_id=e.id) }}">
+            <button type="submit">I'm in</button>
+          </form>
+          <form method="post" action="{{ url_for('delete_event', event_id=e.id) }}">
+            <button type="submit" class="danger">Delete</button>
+          </form>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>No games yet. Create one above.</p>
+    {% endif %}
+  </section>
+
+  <section>
+    <h2>Manage Locations</h2>
+    {% for loc in locations %}
+      <form class="location-row" method="post" action="{{ url_for('edit_location', location_id=loc.id) }}">
+        <input type="text" name="location_name" value="{{ loc.name }}" required>
+        <input type="text" name="location_address" value="{{ loc.address }}" required>
+        <button type="submit">Update</button>
+      </form>
+      <form method="post" action="{{ url_for('delete_location', location_id=loc.id) }}">
+        <button type="submit" class="danger">Delete</button>
+      </form>
+    {% endfor %}
+  </section>
+</body>
+</html>

@@ -1,0 +1,70 @@
+body {
+  font-family: system-ui, sans-serif;
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 0 10px;
+}
+
+h1 {
+  text-align: center;
+}
+
+section {
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+form {
+  margin-top: 10px;
+}
+
+input, select, button {
+  margin: 3px;
+  padding: 6px 8px;
+}
+
+.event-card {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.event-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-row {
+  display: flex;
+  gap: 10px;
+  margin: 5px 0;
+  align-items: center;
+}
+
+.badge-on {
+  background: #2e7d32;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+}
+
+.danger {
+  background: #c62828;
+  color: white;
+}
+
+.location-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.note {
+  font-style: italic;
+  color: #555;
+}
