@@ -95,6 +95,13 @@
       });
     }
   </script>
+<script>
+function copyShareLink(link) {
+  navigator.clipboard.writeText(link).then(() => {
+    alert("Game link copied!");
+  });
+}
+</script>
 
 </body>
 </html>

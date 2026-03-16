@@ -1,4 +1,5 @@
 <div class="event-card">
+
   <div class="event-header">
     <strong>{{ e.location.name }}</strong>
     <a href="{{ e.location.map_url() }}" target="_blank" title="Open in Maps">📍</a>
@@ -8,7 +9,6 @@
     <span>{{ e.date_time.strftime("%a %b %d, %Y %I:%M %p") }}</span>
 
     {% if e.date_time < now %}
-      <!-- Delete button for past games only -->
       <form method="post" action="{{ url_for('delete_event', event_id=e.id) }}" class="delete-inline">
         <button type="submit" class="danger small-delete">Delete</button>
       </form>
@@ -19,31 +19,65 @@
     <div class="note">{{ e.note }}</div>
   {% endif %}
 
-  {% if e.date_time >= now %}
-    <!-- UPCOMING GAMES: show full status row -->
-    <div class="status-row">
-      <span>{{ e.vote_count }} playing</span>
-
-      {% if e.target %}
-        <span>Min. no of Players: {{ e.target }}</span>
-        {% if e.is_on %}
-          <span class="badge-on">Game On!</span>
-        {% endif %}
+  <div class="status-row">
+    <span class="status-badge {% if e.is_on %}on{% else %}pending{% endif %}">
+      {% if e.is_on %}
+        Game On!
+      {% else %}
+        Pending
       {% endif %}
+    </span>
 
+    {% if e.date_time >= now %}
+      <span>{{ e.vote_count }} playing</span>
+    {% endif %}
+
+    {% if e.target %}
+      <span>Min. no of Players: {{ e.target }}</span>
+    {% endif %}
+
+    {% if e.date_time >= now %}
       <form method="post" action="{{ url_for('vote_event', event_id=e.id) }}" class="inline-vote">
         <button type="submit" class="vote-button">I'm in</button>
       </form>
-    </div>
-  {% else %}
-    <!-- PAST GAMES: no vote count, no "I'm in" -->
-    <div class="status-row past-status">
-      {% if e.target %}
-        <span>Min. no of Players: {{ e.target }}</span>
-        {% if e.is_on %}
-          <span class="badge-on">Game On!</span>
-        {% endif %}
-      {% endif %}
-    </div>
-  {% endif %}
+    {% endif %}
+  </div>
+
+  <!-- SHARE BUTTONS -->
+  <div class="share-row">
+
+    <!-- Copy Link -->
+    <button class="share-button"
+            onclick="copyShareLink('{{ url_for('view_game', event_id=e.id, _external=True) }}')">
+      Copy Link
+    </button>
+
+    <!-- WhatsApp -->
+    <a class="whatsapp-button"
+       href="https://wa.me/?text={{ url_for('view_game', event_id=e.id, _external=True) }}"
+       target="_blank">
+      WhatsApp
+    </a>
+
+    <!-- Messenger -->
+    <a class="messenger-button"
+       href="https://www.facebook.com/sharer/sharer.php?u={{ url_for('view_game', event_id=e.id, _external=True) }}"
+       target="_blank">
+      Messenger
+    </a>
+
+    <!-- iMessage -->
+    <a class="imessage-button"
+       href="sms:&body={{ url_for('view_game', event_id=e.id, _external=True) }}">
+      iMessage
+    </a>
+
+    <!-- QR Code -->
+    <a class="qr-button"
+       href="{{ url_for('qr_page', event_id=e.id) }}">
+      QR Code
+    </a>
+
+  </div>
+
 </div>
