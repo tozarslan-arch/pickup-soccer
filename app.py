@@ -43,6 +43,25 @@ def index():
     )
 
 
+# 🔗 Shareable game link route
+@app.route("/game/<int:event_id>")
+def view_game(event_id):
+    event = Event.query.get_or_404(event_id)
+    now = datetime.now()
+    return render_template("single_game.html", event=event, now=now)
+
+
+# 🔳 QR Code route
+@app.route("/game/<int:event_id>/qr")
+def qr_page(event_id):
+    event = Event.query.get_or_404(event_id)
+    link = url_for("view_game", event_id=event.id, _external=True)
+
+    qr_url = f"https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl={link}"
+
+    return render_template("qr_page.html", qr_url=qr_url, link=link, event_id=event.id)
+
+
 @app.route("/locations/add", methods=["POST"])
 def add_location():
     name = request.form.get("location_name", "").strip()

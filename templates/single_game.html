@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Game Details</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <h1>Game Details</h1>
+
+  <div class="event-card">
+
+    <div class="event-header">
+      <strong>{{ event.location.name }}</strong>
+      <a href="{{ event.location.map_url() }}" target="_blank" title="Open in Maps">📍</a>
+    </div>
+
+    <div class="event-top-row">
+      <span>{{ event.date_time.strftime("%a %b %d, %Y %I:%M %p") }}</span>
+    </div>
+
+    {% if event.note %}
+      <div class="note">{{ event.note }}</div>
+    {% endif %}
+
+    <div class="status-row">
+      <span class="status-badge {% if event.is_on %}on{% else %}pending{% endif %}">
+        {% if event.is_on %}
+          Game On!
+        {% else %}
+          Pending
+        {% endif %}
+      </span>
+
+      <span>{{ event.vote_count }} playing</span>
+
+      {% if event.target %}
+        <span>Min. no of Players: {{ event.target }}</span>
+      {% endif %}
+    </div>
+
+    {% if event.date_time >= now %}
+      <form method="post" action="{{ url_for('vote_event', event_id=event.id) }}" class="inline-vote">
+        <button type="submit" class="vote-button">I'm in</button>
+      </form>
+    {% endif %}
+
+    <!-- SHARE BUTTONS -->
+    <div class="share-row">
+
+      <!-- Copy Link -->
+      <button class="share-button"
+              onclick="copyShareLink('{{ url_for('view_game', event_id=event.id, _external=True) }}')">
+        Copy Link
+      </button>
+
+      <!-- WhatsApp -->
+      <a class="whatsapp-button"
+         href="https://wa.me/?text={{ url_for('view_game', event_id=event.id, _external=True) }}"
+         target="_blank">
+        WhatsApp
+      </a>
+
+      <!-- Messenger -->
+      <a class="messenger-button"
+         href="https://www.facebook.com/sharer/sharer.php?u={{ url_for('view_game', event_id=event.id, _external=True) }}"
+         target="_blank">
+        Messenger
+      </a>
+
+      <!-- iMessage -->
+      <a class="imessage-button"
+         href="sms:&body={{ url_for('view_game', event_id=event.id, _external=True) }}">
+        iMessage
+      </a>
+
+      <!-- QR Code -->
+      <a class="qr-button"
+         href="{{ url_for('qr_page', event_id=event.id) }}">
+        QR Code
+      </a>
+
+    </div>
+
+  </div>
+
+  <div style="margin-top: 20px;">
+    <a href="{{ url_for('index') }}">
+      <button class="vote-button">Back to Home</button>
+    </a>
+  </div>
+
+  <script>
+    function copyShareLink(link) {
+      navigator.clipboard.writeText(link).then(() => {
+        alert("Game link copied!");
+      });
+    }
+  </script>
+
+</body>
+</html>

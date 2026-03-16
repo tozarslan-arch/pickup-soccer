@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>QR Code</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <h1>Scan to Open Game</h1>
+
+  <div style="text-align:center;">
+    <img src="{{ qr_url }}" alt="QR Code">
+    <p style="margin-top:10px;">{{ link }}</p>
+
+    <a href="{{ url_for('view_game', event_id=request.view_args.event_id) }}">
+      <button class="vote-button">Back to Game</button>
+    </a>
+  </div>
+
+</body>
+</html>

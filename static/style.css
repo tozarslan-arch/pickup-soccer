@@ -159,9 +159,53 @@ input, select, button {
     gap: 4px;
   }
 
+.imessage-button {
+  background: #34C759; /* Apple green */
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.imessage-button:hover {
+  background: #28a745;
+}
+
+.qr-button {
+  background: #000;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.qr-button:hover {
+  background: #333;
+}
+
   .location-row input {
     width: 100%;
   }
+.share-row {
+  margin-top: 6px;
+}
+
+.share-button {
+  background: #555;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.share-button:hover {
+  background: #333;
+}
+
 
   .location-row button {
     width: 100%;

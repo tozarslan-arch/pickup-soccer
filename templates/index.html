@@ -88,6 +88,12 @@
       const box = document.getElementById("past-games");
       box.style.display = box.style.display === "none" ? "block" : "none";
     }
+
+    function copyShareLink(link) {
+      navigator.clipboard.writeText(link).then(() => {
+        alert("Game link copied!");
+      });
+    }
   </script>
 
 </body>
