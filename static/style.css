@@ -158,6 +158,66 @@ input, select, button {
     align-items: flex-start;
     gap: 4px;
   }
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  background: #eee;
+}
+
+.icon-btn:hover {
+  background: #ccc;
+}
+
+.icon-btn.whatsapp {
+  background: #25D366;
+  color: white;
+}
+
+.icon-btn.whatsapp:hover {
+  background: #1da851;
+}
+
+.icon-btn.messenger {
+  background: #0084FF;
+  color: white;
+}
+
+.icon-btn.messenger:hover {
+  background: #006cd1;
+}
+
+.icon-btn.imessage {
+  background: #34C759;
+  color: white;
+}
+
+.icon-btn.imessage:hover {
+  background: #28a745;
+}
+
+.icon-btn.qr {
+  background: #000;
+  color: white;
+}
+
+.icon-btn.qr:hover {
+  background: #333;
+}
+
+.share-row {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
 
 .imessage-button {
   background: #34C759; /* Apple green */
