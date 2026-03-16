@@ -4,35 +4,46 @@
     <a href="{{ e.location.map_url() }}" target="_blank" title="Open in Maps">📍</a>
   </div>
 
-  <div>
-    {{ e.date_time.strftime("%a %b %d, %Y %I:%M %p") }}
+  <div class="event-top-row">
+    <span>{{ e.date_time.strftime("%a %b %d, %Y %I:%M %p") }}</span>
+
+    {% if e.date_time < now %}
+      <!-- Delete button for past games only -->
+      <form method="post" action="{{ url_for('delete_event', event_id=e.id) }}" class="delete-inline">
+        <button type="submit" class="danger small-delete">Delete</button>
+      </form>
+    {% endif %}
   </div>
 
   {% if e.note %}
     <div class="note">{{ e.note }}</div>
   {% endif %}
 
-  <div class="status-row">
-    <span>{{ e.vote_count }} playing</span>
+  {% if e.date_time >= now %}
+    <!-- UPCOMING GAMES: show full status row -->
+    <div class="status-row">
+      <span>{{ e.vote_count }} playing</span>
 
-    {% if e.target %}
-      <span>Min. no of Players: {{ e.target }}</span>
-
-      {% if e.is_on %}
-        <span class="badge-on">Game On!</span>
+      {% if e.target %}
+        <span>Min. no of Players: {{ e.target }}</span>
+        {% if e.is_on %}
+          <span class="badge-on">Game On!</span>
+        {% endif %}
       {% endif %}
-    {% endif %}
 
-    {% if e.date_time >= now %}
       <form method="post" action="{{ url_for('vote_event', event_id=e.id) }}" class="inline-vote">
         <button type="submit" class="vote-button">I'm in</button>
       </form>
-    {% endif %}
-  </div>
-
-  {% if e.date_time < now %}
-    <form method="post" action="{{ url_for('delete_event', event_id=e.id) }}">
-      <button type="submit" class="danger">Delete</button>
-    </form>
+    </div>
+  {% else %}
+    <!-- PAST GAMES: no vote count, no "I'm in" -->
+    <div class="status-row past-status">
+      {% if e.target %}
+        <span>Min. no of Players: {{ e.target }}</span>
+        {% if e.is_on %}
+          <span class="badge-on">Game On!</span>
+        {% endif %}
+      {% endif %}
+    </div>
   {% endif %}
 </div>

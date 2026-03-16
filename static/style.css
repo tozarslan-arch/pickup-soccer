@@ -69,6 +69,26 @@ input, select, button {
   gap: 10px;
   flex-wrap: wrap;
 }
+.event-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.delete-inline {
+  margin: 0;
+}
+
+.small-delete {
+  padding: 4px 8px;
+  font-size: 0.75rem;
+}
+
+.past-status {
+  opacity: 0.7;
+}
+
 
 .inline-vote {
   margin: 0;
