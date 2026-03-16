@@ -1,12 +1,10 @@
 <div class="event-card">
 
-  <!-- HEADER -->
   <div class="event-header">
     <strong>{{ e.location.name }}</strong>
     <a href="{{ e.location.map_url() }}" target="_blank" title="Open in Maps">📍</a>
   </div>
 
-  <!-- DATE + INLINE DELETE (PAST ONLY) -->
   <div class="event-top-row">
     <span>{{ e.date_time.strftime("%a %b %d, %Y %I:%M %p") }}</span>
 
@@ -17,14 +15,11 @@
     {% endif %}
   </div>
 
-  <!-- OPTIONAL NOTE -->
   {% if e.note %}
     <div class="note">{{ e.note }}</div>
   {% endif %}
 
-  <!-- STATUS + VOTES + TARGET + VOTE BUTTON -->
   <div class="status-row">
-
     <span class="status-badge {% if e.is_on %}on{% else %}pending{% endif %}">
       {% if e.is_on %}
         Game On!
@@ -46,62 +41,6 @@
         <button type="submit" class="vote-button">I'm in</button>
       </form>
     {% endif %}
-  </div>
-
-  <!-- SHARE ICONS -->
-  <div class="share-row">
-
-    <!-- Copy Link -->
-    <button class="icon-btn"
-            onclick="copyShareLink('{{ url_for('view_game', event_id=e.id, _external=True) }}')"
-            title="Copy Link">
-      <svg class="icon" viewBox="0 0 24 24">
-        <path d="M10 13a5 5 0 0 1 0-7l1-1a5 5 0 0 1 7 7l-1 1" />
-        <path d="M14 11a5 5 0 0 1 0 7l-1 1a5 5 0 0 1-7-7l1-1" />
-      </svg>
-    </button>
-
-    <!-- WhatsApp -->
-    <a class="icon-btn whatsapp"
-       href="https://wa.me/?text={{ url_for('view_game', event_id=e.id, _external=True) }}"
-       target="_blank"
-       title="WhatsApp">
-      <svg class="icon" viewBox="0 0 24 24">
-        <path d="M12 2a10 10 0 1 0 4.9 18.7L22 22l-1.3-5A10 10 0 0 0 12 2Z" />
-        <path d="M8 10c0 4 4 6 4 6s4-2 4-6" />
-      </svg>
-    </a>
-
-    <!-- Messenger -->
-    <a class="icon-btn messenger"
-       href="https://www.facebook.com/sharer/sharer.php?u={{ url_for('view_game', event_id=e.id, _external=True) }}"
-       target="_blank"
-       title="Messenger">
-      <svg class="icon" viewBox="0 0 24 24">
-        <path d="M12 2a10 10 0 0 0-9.9 11.5A10 10 0 0 0 12 22l1-.1-1-3 3 1a10 10 0 0 0 7-9.4A10 10 0 0 0 12 2Z" />
-        <path d="m7 14 4-3 3 3 4-3" />
-      </svg>
-    </a>
-
-    <!-- iMessage -->
-    <a class="icon-btn imessage"
-       href="sms:&body={{ url_for('view_game', event_id=e.id, _external=True) }}"
-       title="iMessage">
-      <svg class="icon" viewBox="0 0 24 24">
-        <path d="M12 3c-5 0-9 3-9 7 0 3 3 6 7 7l-1 4 4-3c5 0 9-3 9-7s-4-8-10-8Z" />
-      </svg>
-    </a>
-
-    <!-- QR Code -->
-    <a class="icon-btn qr"
-       href="{{ url_for('qr_page', event_id=e.id) }}"
-       title="QR Code">
-      <svg class="icon" viewBox="0 0 24 24">
-        <path d="M3 3h6v6H3zM15 3h6v6h-6zM3 15h6v6H3zM15 15h3v3h-3z" />
-        <path d="M18 18h3v3h-3z" />
-      </svg>
-    </a>
-
   </div>
 
 </div>

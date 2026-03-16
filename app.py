@@ -8,7 +8,6 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
 
-# Flask 3.x compatible table creation
 with app.app_context():
     db.create_all()
 
@@ -16,7 +15,6 @@ with app.app_context():
 @app.route("/", methods=["GET"])
 def index():
     locations = Location.query.order_by(Location.name).all()
-
     now = datetime.now()
 
     upcoming = (
@@ -41,25 +39,6 @@ def index():
         past=past,
         now=now
     )
-
-
-# 🔗 Shareable game link route
-@app.route("/game/<int:event_id>")
-def view_game(event_id):
-    event = Event.query.get_or_404(event_id)
-    now = datetime.now()
-    return render_template("single_game.html", event=event, now=now)
-
-
-# 🔳 QR Code route
-@app.route("/game/<int:event_id>/qr")
-def qr_page(event_id):
-    event = Event.query.get_or_404(event_id)
-    link = url_for("view_game", event_id=event.id, _external=True)
-
-    qr_url = f"https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl={link}"
-
-    return render_template("qr_page.html", qr_url=qr_url, link=link, event_id=event.id)
 
 
 @app.route("/locations/add", methods=["POST"])
