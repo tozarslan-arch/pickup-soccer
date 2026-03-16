@@ -63,6 +63,31 @@ input, select, button {
   gap: 4px;
   margin-bottom: 4px;
 }
+.status-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.inline-vote {
+  margin: 0;
+}
+
+.vote-button {
+  background: #1976d2;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.vote-button:hover {
+  background: #0d47a1;
+}
+
 
 .note {
   font-style: italic;
