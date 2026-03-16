@@ -55,43 +55,6 @@
     </button>
 
     <!-- WhatsApp -->
-    <a class="icon-btn whatsapp"
-       href="https://wa.me/?text={{ url_for('view_game', event_id=e.id, _external=True) }}"
-       target="_blank"
-       title="WhatsApp">
+    <a class="icon-btn" href="https://wa.me/?text={{ url_for('view_game', event_id=e.id, _external=True) }}" target="_blank" title="WhatsApp">
       <svg class="icon" viewBox="0 0 32 32">
-        <path fill="white" d="M16.04 3C9.4 3 4 8.4 4 15.04c0 2.64.84 5.12 2.28 7.16L4 29l7.04-2.28c1.96 1.24 4.28 1.96 6.72 1.96 6.64 0 12.04-5.4 12.04-12.04C29.8 8.4 24.4 3 16.04 3z"/>
-      </svg>
-    </a>
-
-    <!-- Messenger -->
-    <a class="icon-btn messenger"
-       href="https://www.facebook.com/sharer/sharer.php?u={{ url_for('view_game', event_id=e.id, _external=True) }}"
-       target="_blank"
-       title="Messenger">
-      <svg class="icon" viewBox="0 0 24 24">
-        <path fill="white" d="M12 2C6.48 2 2 6.06 2 11.1c0 2.86 1.44 5.42 3.72 7.1V22l3.4-1.86c.92.26 1.9.4 2.88.4 5.52 0 10-4.06 10-9.1C22 6.06 17.52 2 12 2z"/>
-      </svg>
-    </a>
-
-    <!-- iMessage -->
-    <a class="icon-btn imessage"
-       href="sms:&body={{ url_for('view_game', event_id=e.id, _external=True) }}"
-       title="iMessage">
-      <svg class="icon" viewBox="0 0 24 24">
-        <path fill="white" d="M12 3C6.48 3 2 6.92 2 11.76c0 2.52 1.32 4.8 3.48 6.36-.12.84-.48 2.28-1.32 3.48 1.8-.36 3.48-1.08 4.44-1.68.96.24 1.92.36 2.88.36 5.52 0 10-3.92 10-8.76C22 6.92 17.52 3 12 3z"/>
-      </svg>
-    </a>
-
-    <!-- QR Code -->
-    <a class="icon-btn qr"
-       href="{{ url_for('qr_page', event_id=e.id) }}"
-       title="QR Code">
-      <svg class="icon" viewBox="0 0 24 24">
-        <path fill="white" d="M3 3h8v8H3V3zm2 2v4h4V5H5zm6 0h2v2h-2V5zm4 0h6v6h-6V5zm2 2v2h2V7h-2zM3 13h2v2H3v-2zm4 0h4v4H7v-4zm-4 6h6v2H3v-2zm10-6h2v2h-2v-2zm4 0h4v4h-4v-4zm-4 4h2v4h-2v-4zm4 2h2v2h-2v-2z"/>
-      </svg>
-    </a>
-
-  </div>
-
-</div>
+        <circle cx="16" cy="16" r="16" fill="#25D366"/>
