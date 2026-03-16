@@ -1,0 +1,36 @@
+<div class="event-card">
+  <div class="event-header">
+    <strong>{{ e.location.name }}</strong>
+    <a href="{{ e.location.map_url() }}" target="_blank" title="Open in Maps">📍</a>
+  </div>
+
+  <div>
+    {{ e.date_time.strftime("%a %b %d, %Y %I:%M %p") }}
+  </div>
+
+  {% if e.note %}
+    <div class="note">{{ e.note }}</div>
+  {% endif %}
+
+  <div class="status-row">
+    <span>{{ e.vote_count }} playing</span>
+
+    {% if e.target %}
+      <span>Min. no of Players: {{ e.target }}</span>
+
+      {% if e.is_on %}
+        <span class="badge-on">Game On!</span>
+      {% endif %}
+    {% endif %}
+  </div>
+
+  {% if e.date_time >= now %}
+    <form method="post" action="{{ url_for('vote_event', event_id=e.id) }}">
+      <button type="submit">I'm in</button>
+    </form>
+  {% endif %}
+
+  <form method="post" action="{{ url_for('delete_event', event_id=e.id) }}">
+    <button type="submit" class="danger">Delete</button>
+  </form>
+</div>

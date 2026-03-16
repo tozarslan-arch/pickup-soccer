@@ -18,8 +18,8 @@
   </section>
 
   <section>
-    <h2>Create Event</h2>
-    <form method="post" action="{{ url_for('add_event') }}">
+<h2>Create Game</h2>
+<form method="post" action="{{ url_for('add_event') }}">
       <select name="location_id" required>
         <option value="">Select location</option>
         {% for loc in locations %}
@@ -28,48 +28,33 @@
       </select>
       <input type="date" name="date" required>
       <input type="time" name="time" required>
-      <input type="number" name="target" min="1" placeholder="Target players (optional)">
+	<input type="number" name="target" min="1" placeholder="Min. no of Players (optional)">
       <input type="text" name="note" placeholder="Note (optional)">
       <button type="submit">Create Event</button>
     </form>
   </section>
 
   <section>
-    <h2>Upcoming Games</h2>
-    {% if events %}
-      {% for e in events %}
-        <div class="event-card">
-          <div class="event-header">
-            <strong>{{ e.location.name }}</strong>
-            <a href="{{ e.location.map_url() }}" target="_blank" title="Open in Maps">🗺️</a>
-          </div>
-          <div>
-            {{ e.date_time.strftime("%a %b %d, %Y %I:%M %p") }}
-          </div>
-          {% if e.note %}
-            <div class="note">{{ e.note }}</div>
-          {% endif %}
-          <div class="status-row">
-            <span>{{ e.vote_count }} going</span>
-            {% if e.target %}
-              <span>Target: {{ e.target }}</span>
-              {% if e.is_on %}
-                <span class="badge-on">ON</span>
-              {% endif %}
-            {% endif %}
-          </div>
-          <form method="post" action="{{ url_for('vote_event', event_id=e.id) }}">
-            <button type="submit">I'm in</button>
-          </form>
-          <form method="post" action="{{ url_for('delete_event', event_id=e.id) }}">
-            <button type="submit" class="danger">Delete</button>
-          </form>
-        </div>
-      {% endfor %}
-    {% else %}
-      <p>No games yet. Create one above.</p>
-    {% endif %}
-  </section>
+  <h2>Upcoming Games</h2>
+  {% if upcoming %}
+    {% for e in upcoming %}
+      {% include 'event_card.html' %}
+    {% endfor %}
+  {% else %}
+    <p>No upcoming games.</p>
+  {% endif %}
+</section>
+<section>
+  <h2>Past Games</h2>
+  {% if past %}
+    {% for e in past %}
+      {% include 'event_card.html' %}
+    {% endfor %}
+  {% else %}
+    <p>No past games yet.</p>
+  {% endif %}
+</section>
+
 
   <section>
     <h2>Manage Locations</h2>

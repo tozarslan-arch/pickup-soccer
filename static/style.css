@@ -68,3 +68,11 @@ input, select, button {
   font-style: italic;
   color: #555;
 }
+.badge-on {
+  background: #2e7d32;
+  color: white;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: bold;
+}

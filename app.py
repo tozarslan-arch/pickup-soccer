@@ -15,8 +15,18 @@ with app.app_context():
 @app.route("/", methods=["GET"])
 def index():
     locations = Location.query.order_by(Location.name).all()
-    events = Event.query.order_by(Event.date_time).all()
-    return render_template("index.html", locations=locations, events=events)
+    now = datetime.now()
+
+upcoming = Event.query.filter(Event.date_time >= now).order_by(Event.date_time).all()
+past = Event.query.filter(Event.date_time < now).order_by(Event.date_time.desc()).all()
+
+return render_template(
+    "index.html",
+    locations=locations,
+    upcoming=upcoming,
+    past=past
+)
+
 
 @app.route("/locations/add", methods=["POST"])
 def add_location():
