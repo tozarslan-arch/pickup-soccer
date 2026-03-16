@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Event Card Demo</title>
+
+<style>
+/* --------------------------------------------------
+   GLOBAL LAYOUT
+-------------------------------------------------- */
+
+body {
+  font-family: system-ui, sans-serif;
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 0 10px;
+}
+
+h1 {
+  text-align: center;
+}
+
+section {
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+form {
+  margin-top: 10px;
+}
+
+input, select, button {
+  margin: 3px;
+  padding: 6px 8px;
+}
+
+/* --------------------------------------------------
+   EVENT CARD
+-------------------------------------------------- */
+
+.event-card {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.event-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.event-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+}
+
+/* --------------------------------------------------
+   STATUS ROW
+-------------------------------------------------- */
+
+.status-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  color: white;
+}
+
+.status-badge.pending {
+  background: #fbc02d;
+  color: #000;
+}
+
+.status-badge.on {
+  background: #2e7d32;
+}
+
+/* --------------------------------------------------
+   BUTTONS
+-------------------------------------------------- */
+
+.inline-vote {
+  margin: 0;
+}
+
+.vote-button {
+  background: #1976d2;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.vote-button:hover {
+  background: #0d47a1;
+}
+
+.danger {
+  background: #c62828;
+  color: white;
+}
+
+.small-delete {
+  padding: 4px 8px;
+  font-size: 0.75rem;
+}
+
+.delete-inline {
+  margin: 0;
+}
+
+/* --------------------------------------------------
+   NOTES
+-------------------------------------------------- */
+
+.note {
+  font-style: italic;
+  color: #555;
+}
+
+/* --------------------------------------------------
+   MANAGE LOCATIONS
+-------------------------------------------------- */
+
+.location-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+/* --------------------------------------------------
+   COLLAPSIBLE PAST GAMES
+-------------------------------------------------- */
+
+.collapsible-header {
+  cursor: pointer;
+  user-select: none;
+}
+
+.collapsible-content {
+  display: none;
+  margin-top: 10px;
+}
+
+/* --------------------------------------------------
+   SHARE ICON BUTTONS (GLOBAL)
+-------------------------------------------------- */
+
+.share-row {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.icon-btn {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: #eee;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+}
+
+.icon-btn:hover {
+  background: #ccc;
+}
+
+.icon {
+  width: 22px;
+  height: 22px;
+  stroke: white;
+  fill: none;
+}
+
+/* Brand colors */
+.icon-btn.whatsapp {
+  background: #25D366;
+}
+
+.icon-btn.messenger {
+  background: #0084FF;
+}
+
+.icon-btn.imessage {
+  background: #34C759;
+}
+
+.icon-btn.qr {
+  background: #000;
+}
+
+/* --------------------------------------------------
+   MOBILE OPTIMIZATION
+-------------------------------------------------- */
+
+@media (max-width: 600px) {
+  .event-card {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .status-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .vote-button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .event-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .location-row input,
+  .location-row button {
+    width: 100%;
+  }
+}
+</style>
+
+<script>
+function copyShareLink(url) {
+  navigator.clipboard.writeText(url).then(() => {
+    alert("Link copied!");
+  });
+}
+</script>
+
+</head>
+<body>
+
+<h1>Event Card Demo</h1>
+
+<!-- --------------------------------------------------
+     EVENT CARD (STATIC SAMPLE DATA)
+-------------------------------------------------- -->
+
+<div class="event-card">
+
+  <div class="event-header">
+    <strong>Central Park</strong>
+    <a href="https://maps.google.com" target="_blank" title="Open in Maps">📍</a>
+  </div>
+
+  <div class="event-top-row">
+    <span>Sat Mar 21, 2026 10:00 AM</span>
+
+    <form method="post" class="delete-inline">
+      <button type="submit" class="danger small-delete">Delete</button>
+    </form>
+  </div>
+
+  <div class="note">Bring water and shin guards.</div>
+
+  <div class="status-row">
+    <span class="status-badge on">Game On!</span>
+    <span>12 playing</span>
+    <span>Min. no of Players: 10</span>
+
+    <form method="post" class="inline-vote">
+      <button type="submit" class="vote-button">I'm in</button>
+    </form>
+  </div>
+
+  <div class="share-row">
+
+    <!-- Copy Link -->
+    <button class="icon-btn"
+            onclick="copyShareLink('https://example.com/game/123')"
+            title="Copy Link">
+      <svg class="icon" viewBox="0 0 24 24">
+        <path d="M10 13a5 5 0 0 1 0-7l1-1a5 5 0 0 1 7 7l-1 1" />
+        <path d="M14 11a5 5 0 0 1 0 7l-1 1a5 5 0 0 1-7-7l1-1" />
+      </svg>
+    </button>
+
+    <!-- WhatsApp -->
+    <a class="icon-btn whatsapp"
+       href="https://wa.me/?text=https://example.com/game/123"
+       target="_blank"
+       title="WhatsApp">
+      <svg class="icon" viewBox="0 0 24 24">
+        <path d="M12 2a10 10 0 1 0 4.9 18.7L22 22l-1.3-5A10 10 0 0 0 12 2Z" />
+        <path d="M8 10c0 4 4 6 4 6s4-2 4-6" />
+      </svg>
+    </a>
+
+    <!-- Messenger -->
+    <a class="icon-btn messenger"
+       href="https://www.facebook.com/sharer/sharer.php?u=https://example.com/game/123"
+       target="_blank"
+       title="Messenger">
+      <svg class="icon" viewBox="0 0 24 24">
+        <path d="M12 2a10 10 0 0 0-9.9 11.5A10 10 0 0 0 12 22l1-.1-1-3 3 1a10 10 0 0 0 7-9.4A10 10 0 0 0 12 2Z" />
+        <path d="m7 14 4-3 3 3 4-3" />
+      </svg>
+    </a>
+
+    <!-- iMessage -->
+    <a class="icon-btn imessage"
+       href="sms:&body=https://example.com/game/123"
+       title="iMessage">
+      <svg class="icon" viewBox="0 0 24 24">
+        <path d="M12 3c-5 0-9 3-9 7 0 3 3 6 7 7l-1 4 4-3c5 0 9-3 9-7s-4-8-10-8Z" />
+      </svg>
+    </a>
+
+    <!-- QR Code -->
+    <a class="icon-btn qr"
+       href="#"
+       title="QR Code">
+      <svg class="icon" viewBox="0 0 24 24">
+        <path d="M3 3h6v6H3zM15 3h6v6h-6zM3 15h6v6H3zM15 15h3v3h-3z" />
+        <path d="M18 18h3v3h-3z" />
+      </svg>
+    </a>
+
+  </div>
+
+</div>
+
+</body>
+</html>
