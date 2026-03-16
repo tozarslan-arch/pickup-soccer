@@ -1,3 +1,7 @@
+/* --------------------------------------------------
+   GLOBAL LAYOUT
+-------------------------------------------------- */
+
 body {
   font-family: system-ui, sans-serif;
   max-width: 900px;
@@ -19,12 +23,18 @@ form {
   margin-top: 10px;
 }
 
-input, select, button {
+input,
+select,
+button {
   margin: 3px;
   padding: 6px 8px;
 }
 
-/* Event Card */
+
+/* --------------------------------------------------
+   EVENT CARD
+-------------------------------------------------- */
+
 .event-card {
   border: 1px solid #ddd;
   padding: 10px;
@@ -45,7 +55,11 @@ input, select, button {
   margin-top: 4px;
 }
 
-/* Status Row */
+
+/* --------------------------------------------------
+   STATUS ROW
+-------------------------------------------------- */
+
 .status-row {
   display: flex;
   align-items: center;
@@ -54,7 +68,6 @@ input, select, button {
   margin-top: 6px;
 }
 
-/* Status Badges */
 .status-badge {
   padding: 4px 10px;
   border-radius: 6px;
@@ -63,15 +76,19 @@ input, select, button {
 }
 
 .status-badge.pending {
-  background: #fbc02d; /* yellow */
+  background: #fbc02d;
   color: #000;
 }
 
 .status-badge.on {
-  background: #2e7d32; /* green */
+  background: #2e7d32;
 }
 
-/* Vote Button */
+
+/* --------------------------------------------------
+   BUTTONS
+-------------------------------------------------- */
+
 .inline-vote {
   margin: 0;
 }
@@ -90,7 +107,6 @@ input, select, button {
   background: #0d47a1;
 }
 
-/* Delete Button */
 .danger {
   background: #c62828;
   color: white;
@@ -105,18 +121,21 @@ input, select, button {
   margin: 0;
 }
 
-/* Notes */
+
+/* --------------------------------------------------
+   NOTES
+-------------------------------------------------- */
+
 .note {
   font-style: italic;
   color: #555;
 }
 
-/* Past Games Fade */
-.past-status {
-  opacity: 0.7;
-}
 
-/* Manage Locations */
+/* --------------------------------------------------
+   MANAGE LOCATIONS
+-------------------------------------------------- */
+
 .location-row {
   display: flex;
   flex-wrap: wrap;
@@ -124,7 +143,11 @@ input, select, button {
   align-items: center;
 }
 
-/* Collapsible Past Games */
+
+/* --------------------------------------------------
+   COLLAPSIBLE PAST GAMES
+-------------------------------------------------- */
+
 .collapsible-header {
   cursor: pointer;
   user-select: none;
@@ -135,7 +158,11 @@ input, select, button {
   margin-top: 10px;
 }
 
-/* Mobile Optimization */
+
+/* --------------------------------------------------
+   MOBILE OPTIMIZATION
+-------------------------------------------------- */
+
 @media (max-width: 600px) {
   .event-card {
     padding: 10px;
@@ -159,10 +186,7 @@ input, select, button {
     gap: 4px;
   }
 
-  .location-row input {
-    width: 100%;
-  }
-
+  .location-row input,
   .location-row button {
     width: 100%;
   }
