@@ -19,14 +19,20 @@ def index():
 
     now = datetime.now()
 
-    upcoming = Event.query.filter(Event.date_time >= now).order_by(Event.date_time).all()
-past = (
-    Event.query
-    .filter(Event.date_time < now)
-    .order_by(Event.date_time.desc())
-    .limit(5)
-    .all()
-)
+    upcoming = (
+        Event.query
+        .filter(Event.date_time >= now)
+        .order_by(Event.date_time)
+        .all()
+    )
+
+    past = (
+        Event.query
+        .filter(Event.date_time < now)
+        .order_by(Event.date_time.desc())
+        .limit(5)
+        .all()
+    )
 
     return render_template(
         "index.html",
