@@ -15,17 +15,20 @@ with app.app_context():
 @app.route("/", methods=["GET"])
 def index():
     locations = Location.query.order_by(Location.name).all()
+
     now = datetime.now()
 
-upcoming = Event.query.filter(Event.date_time >= now).order_by(Event.date_time).all()
-past = Event.query.filter(Event.date_time < now).order_by(Event.date_time.desc()).all()
+    upcoming = Event.query.filter(Event.date_time >= now).order_by(Event.date_time).all()
+    past = Event.query.filter(Event.date_time < now).order_by(Event.date_time.desc()).all()
 
-return render_template(
-    "index.html",
-    locations=locations,
-    upcoming=upcoming,
-    past=past
-)
+    return render_template(
+        "index.html",
+        locations=locations,
+        upcoming=upcoming,
+        past=past,
+        now=now
+    )
+
 
 
 @app.route("/locations/add", methods=["POST"])
@@ -72,7 +75,7 @@ def add_event():
     dt = datetime.fromisoformat(f"{date_str}T{time_str}")
     target = int(target_str) if target_str else None
 
-    event = Event(location_id=location_id, date_time=dt, target=target, note=note)
+	event = Event(location_id=int(location_id), date_time=dt, target=target, note=note)
     db.session.add(event)
     db.session.commit()
     return redirect(url_for("index"))
