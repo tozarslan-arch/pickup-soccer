@@ -12,6 +12,7 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
+
 @app.route("/", methods=["GET"])
 def index():
     locations = Location.query.order_by(Location.name).all()
@@ -30,29 +31,34 @@ def index():
     )
 
 
-
 @app.route("/locations/add", methods=["POST"])
 def add_location():
     name = request.form.get("location_name", "").strip()
     address = request.form.get("location_address", "").strip()
+
     if name and address:
         existing = Location.query.filter_by(name=name).first()
         if not existing:
             loc = Location(name=name, address=address)
             db.session.add(loc)
             db.session.commit()
+
     return redirect(url_for("index"))
+
 
 @app.route("/locations/<int:location_id>/edit", methods=["POST"])
 def edit_location(location_id):
     loc = Location.query.get_or_404(location_id)
     name = request.form.get("location_name", "").strip()
     address = request.form.get("location_address", "").strip()
+
     if name and address:
         loc.name = name
         loc.address = address
         db.session.commit()
+
     return redirect(url_for("index"))
+
 
 @app.route("/locations/<int:location_id>/delete", methods=["POST"])
 def delete_location(location_id):
@@ -60,6 +66,7 @@ def delete_location(location_id):
     db.session.delete(loc)
     db.session.commit()
     return redirect(url_for("index"))
+
 
 @app.route("/events/add", methods=["POST"])
 def add_event():
@@ -75,10 +82,17 @@ def add_event():
     dt = datetime.fromisoformat(f"{date_str}T{time_str}")
     target = int(target_str) if target_str else None
 
-	event = Event(location_id=int(location_id), date_time=dt, target=target, note=note)
+    event = Event(
+        location_id=int(location_id),
+        date_time=dt,
+        target=target,
+        note=note
+    )
+
     db.session.add(event)
     db.session.commit()
     return redirect(url_for("index"))
+
 
 @app.route("/events/<int:event_id>/vote", methods=["POST"])
 def vote_event(event_id):
@@ -88,12 +102,14 @@ def vote_event(event_id):
     db.session.commit()
     return redirect(url_for("index"))
 
+
 @app.route("/events/<int:event_id>/delete", methods=["POST"])
 def delete_event(event_id):
     event = Event.query.get_or_404(event_id)
     db.session.delete(event)
     db.session.commit()
     return redirect(url_for("index"))
+
 
 if __name__ == "__main__":
     app.run(debug=True)
