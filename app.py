@@ -98,12 +98,14 @@ def add_event():
     target_str = request.form.get("target")
     note = request.form.get("note", "").strip() or None
 
+    # Only require location + date
     if not (location_id and date_str):
         return redirect(url_for("index"))
 
     dt = datetime.fromisoformat(f"{date_str}T{time_str}")
 
-    target = int(target_str) if target_str else 8  # DEFAULT MIN PLAYERS
+    # DEFAULT MIN PLAYERS = 8
+    target = int(target_str) if target_str else 8
 
     event = Event(
         location_id=int(location_id),
@@ -115,6 +117,7 @@ def add_event():
     db.session.add(event)
     db.session.commit()
     return redirect(url_for("index"))
+
 
 
 @app.route("/events/<int:event_id>/vote", methods=["POST"])
