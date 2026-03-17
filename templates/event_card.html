@@ -1,10 +1,22 @@
 <div class="event-card">
 
+  <!-- MAP PREVIEW -->
+  <div class="map-thumb">
+    <a href="{{ e.location.map_url() }}" target="_blank">
+      <img
+        src="https://maps.googleapis.com/maps/api/staticmap?center={{ e.location.address | urlencode }}&zoom=15&size=300x200&maptype=roadmap&markers=color:red|{{ e.location.address | urlencode }}&key=YOUR_API_KEY"
+        alt="Map preview"
+      >
+    </a>
+  </div>
+
+  <!-- HEADER -->
   <div class="event-header">
     <strong>{{ e.location.name }}</strong>
     <a href="{{ e.location.map_url() }}" target="_blank" title="Open in Maps">📍</a>
   </div>
 
+  <!-- DATE + DELETE (PAST ONLY) -->
   <div class="event-top-row">
     <span>{{ e.date_time.strftime("%a %b %d, %Y %I:%M %p") }}</span>
 
@@ -15,10 +27,12 @@
     {% endif %}
   </div>
 
+  <!-- NOTE -->
   {% if e.note %}
     <div class="note">{{ e.note }}</div>
   {% endif %}
 
+  <!-- STATUS + VOTES + TARGET + I'M IN -->
   <div class="status-row">
     <span class="status-badge {% if e.is_on %}on{% else %}pending{% endif %}">
       {% if e.is_on %}
