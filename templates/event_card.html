@@ -1,32 +1,35 @@
 <div class="event-card">
 
-  <div class="event-header">
-    <strong>{{ e.location.name }}</strong>
-    <a href="{{ e.location.map_url() }}" target="_blank" title="Open in Maps">📍</a>
+  <!-- ONE-LINE HEADER -->
+  <div class="event-line">
+
+    <!-- STATUS FIRST -->
+    <span class="status-badge-inline {% if e.is_on %}on{% else %}pending{% endif %}">
+      {% if e.is_on %}Game On!{% else %}Pending{% endif %}
+    </span>
+
+    <!-- LOCATION NAME (CLICKABLE) -->
+    <a class="event-location-link"
+       href="{{ e.location.address }}"
+       target="_blank"
+       rel="noopener">
+      {{ e.location.name }}
+    </a>
+
+    <!-- DATE/TIME ON THE RIGHT -->
+    <span class="event-datetime">
+      {{ e.date_time.strftime("%a %b %d, %Y %I:%M %p") }}
+    </span>
+
   </div>
 
-  <div class="event-top-row">
-    <span>{{ e.date_time.strftime("%a %b %d, %Y %I:%M %p") }}</span>
-
-    {% if e.date_time < now %}
-      <form method="post" action="{{ url_for('delete_event', event_id=e.id) }}" class="delete-inline">
-        <button type="submit" class="danger small-delete">Delete</button>
-      </form>
-    {% endif %}
-  </div>
-
+  <!-- NOTE -->
   {% if e.note %}
     <div class="note">{{ e.note }}</div>
   {% endif %}
 
+  <!-- STATUS ROW (VOTES, TARGET, I'M IN) -->
   <div class="status-row">
-    <span class="status-badge {% if e.is_on %}on{% else %}pending{% endif %}">
-      {% if e.is_on %}
-        Game On!
-      {% else %}
-        Pending
-      {% endif %}
-    </span>
 
     {% if e.date_time >= now %}
       <span>{{ e.vote_count }} playing</span>
@@ -41,6 +44,13 @@
         <button type="submit" class="vote-button">I'm in</button>
       </form>
     {% endif %}
+
+    {% if e.date_time < now %}
+      <form method="post" action="{{ url_for('delete_event', event_id=e.id) }}" class="delete-inline">
+        <button type="submit" class="danger small-delete">Delete</button>
+      </form>
+    {% endif %}
+
   </div>
 
 </div>
