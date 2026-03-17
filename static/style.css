@@ -168,6 +168,32 @@ button {
     padding: 10px;
     font-size: 0.9rem;
   }
+section {
+  margin-bottom: 32px;
+}
+
+h2 {
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1.1rem;
+  margin-top: 20px;
+  font-weight: 500;
+}
+
+/* Collapsible Past Games */
+.collapsible {
+  cursor: pointer;
+  user-select: none;
+}
+
+.content {
+  display: none;
+  margin-top: 10px;
+}
 
   .status-row {
     flex-direction: column;

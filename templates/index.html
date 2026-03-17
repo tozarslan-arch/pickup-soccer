@@ -9,17 +9,34 @@
 <body>
   <h1>Pickup Soccer Scheduler</h1>
 
-  <!-- Add Location -->
+  <!-- UPCOMING GAMES -->
   <section>
-    <h2>Add Location</h2>
-    <form method="post" action="{{ url_for('add_location') }}">
-      <input type="text" name="location_name" placeholder="Location name" required>
-      <input type="text" name="location_address" placeholder="Address" required>
-      <button type="submit">Save Location</button>
-    </form>
+    <h2>Upcoming Games</h2>
+    {% if upcoming %}
+      {% for e in upcoming %}
+        {% include 'event_card.html' %}
+      {% endfor %}
+    {% else %}
+      <p>No upcoming games.</p>
+    {% endif %}
   </section>
 
-  <!-- Create Game -->
+  <!-- PAST GAMES -->
+  <section>
+    <h2 class="collapsible-header" onclick="togglePast()">Past Games ▼</h2>
+
+    <div id="past-games" class="collapsible-content">
+      {% if past %}
+        {% for e in past %}
+          {% include 'event_card.html' %}
+        {% endfor %}
+      {% else %}
+        <p>No past games yet.</p>
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- CREATE GAME -->
   <section>
     <h2>Create Game</h2>
     <form method="post" action="{{ url_for('add_event') }}">
@@ -38,36 +55,10 @@
     </form>
   </section>
 
-  <!-- Upcoming Games -->
-  <section>
-    <h2>Upcoming Games</h2>
-    {% if upcoming %}
-      {% for e in upcoming %}
-        {% include 'event_card.html' %}
-      {% endfor %}
-    {% else %}
-      <p>No upcoming games.</p>
-    {% endif %}
-  </section>
-
-  <!-- Past Games -->
-  <section>
-    <h2 class="collapsible-header" onclick="togglePast()">Past Games ▼</h2>
-
-    <div id="past-games" class="collapsible-content">
-      {% if past %}
-        {% for e in past %}
-          {% include 'event_card.html' %}
-        {% endfor %}
-      {% else %}
-        <p>No past games yet.</p>
-      {% endif %}
-    </div>
-  </section>
-
-  <!-- Manage Locations -->
+  <!-- MANAGE LOCATIONS -->
   <section>
     <h2>Manage Locations</h2>
+
     {% for loc in locations %}
       <form class="location-row" method="post" action="{{ url_for('edit_location', location_id=loc.id) }}">
         <input type="text" name="location_name" value="{{ loc.name }}" required>
@@ -82,6 +73,14 @@
         </button>
       </form>
     {% endfor %}
+
+    <!-- ADD NEW LOCATION (sub-section) -->
+    <h3>Add New Location</h3>
+    <form method="post" action="{{ url_for('add_location') }}">
+      <input type="text" name="location_name" placeholder="Location name" required>
+      <input type="text" name="location_address" placeholder="Address" required>
+      <button type="submit">Save Location</button>
+    </form>
   </section>
 
   <script>
