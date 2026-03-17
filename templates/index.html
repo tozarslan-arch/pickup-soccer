@@ -23,10 +23,11 @@
 
   <!-- PAST GAMES -->
   <section>
-<h2 class="collapsible-header" onclick="togglePast()">
-  Past Games{% if past|length > 0 %} ({{ past|length }}){% endif %} ▼
-</h2>
-    <div id="past-games" class="collapsible-content">
+    <h2 class="collapsible-header" onclick="togglePast()">
+      Past Games{% if past|length > 0 %} ({{ past|length }}){% endif %} ▼
+    </h2>
+
+    <div id="past-games" class="collapsible-content" style="display:none;">
       {% if past %}
         {% for e in past %}
           {% include 'event_card.html' %}
@@ -58,58 +59,47 @@
 
   <!-- MANAGE LOCATIONS -->
   <section>
-<section>
-  <h2 class="collapsible-header" onclick="toggleLocations()">
-    Manage Locations ▼
-  </h2>
+    <h2 class="collapsible-header" onclick="toggleLocations()">
+      Manage Locations ▼
+    </h2>
 
-  <div id="manage-locations-box" class="collapsible-content">
-    {% for loc in locations %}
-      <form class="location-row" method="post" action="{{ url_for('edit_location', location_id=loc.id) }}">
-        <input type="text" name="location_name" value="{{ loc.name }}" required>
-        <input type="text" name="location_address" value="{{ loc.address }}" required>
+    <div id="manage-locations-box" class="collapsible-content" style="display:none;">
+      {% for loc in locations %}
+        <form class="location-row" method="post" action="{{ url_for('edit_location', location_id=loc.id) }}">
+          <input type="text" name="location_name" value="{{ loc.name }}" required>
+          <input type="text" name="location_address" value="{{ loc.address }}" required>
 
-        <button type="submit">Update</button>
+          <button type="submit">Update</button>
 
-        <button formmethod="post"
-                formaction="{{ url_for('delete_location', location_id=loc.id) }}"
-                class="danger small-delete">
-          Delete
-        </button>
+          <button formmethod="post"
+                  formaction="{{ url_for('delete_location', location_id=loc.id) }}"
+                  class="danger small-delete">
+            Delete
+          </button>
+        </form>
+      {% endfor %}
+
+      <h3>Add New Location</h3>
+      <form method="post" action="{{ url_for('add_location') }}">
+        <input type="text" name="location_name" placeholder="Location name" required>
+        <input type="text" name="location_address" placeholder="Address" required>
+        <button type="submit">Save Location</button>
       </form>
-    {% endfor %}
-
-    <h3>Add New Location</h3>
-    <form method="post" action="{{ url_for('add_location') }}">
-      <input type="text" name="location_name" placeholder="Location name" required>
-      <input type="text" name="location_address" placeholder="Address" required>
-      <button type="submit">Save Location</button>
-    </form>
-  </div>
-</section>
-    {% endfor %}
-
-    <!-- ADD NEW LOCATION (sub-section) -->
-    <h3>Add New Location</h3>
-    <form method="post" action="{{ url_for('add_location') }}">
-      <input type="text" name="location_name" placeholder="Location name" required>
-      <input type="text" name="location_address" placeholder="Address" required>
-      <button type="submit">Save Location</button>
-    </form>
+    </div>
   </section>
 
+  <!-- SCRIPTS -->
   <script>
     function togglePast() {
       const box = document.getElementById("past-games");
       box.style.display = box.style.display === "none" ? "block" : "none";
     }
+
+    function toggleLocations() {
+      const box = document.getElementById("manage-locations-box");
+      box.style.display = box.style.display === "none" ? "block" : "none";
+    }
   </script>
-<script>
-  function toggleLocations() {
-    const box = document.getElementById("manage-locations-box");
-    box.style.display = box.style.display === "none" ? "block" : "none";
-  }
-</script>
 
 </body>
 </html>
