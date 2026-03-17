@@ -23,8 +23,9 @@
 
   <!-- PAST GAMES -->
   <section>
-    <h2 class="collapsible-header" onclick="togglePast()">Past Games ▼</h2>
-
+<h2 class="collapsible-header" onclick="togglePast()">
+  Past Games{% if past|length > 0 %} ({{ past|length }}){% endif %} ▼
+</h2>
     <div id="past-games" class="collapsible-content">
       {% if past %}
         {% for e in past %}
