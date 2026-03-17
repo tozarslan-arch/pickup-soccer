@@ -175,27 +175,60 @@ button {
 }
 
 /* --------------------------------------------------
-   MOBILE OPTIMIZATION
+   MOBILE OPTIMIZATION — NEW VERSION
 -------------------------------------------------- */
 
 @media (max-width: 600px) {
+
   .event-card {
     padding: 10px;
     font-size: 0.9rem;
   }
 
-  .event-line,
-  .event-line-2 {
+  /* LINE 1 becomes stacked */
+  .event-line {
     flex-direction: column;
     align-items: flex-start;
-  }
-
-  .vote-button {
-    width: 100%;
-    text-align: center;
+    gap: 6px;
   }
 
   .event-location-link {
     width: 100%;
+    font-size: 1rem;
+  }
+
+  .event-datetime {
+    width: 100%;
+    font-size: 0.95rem;
+    color: #555;
+  }
+
+  /* Full-width button */
+  .inline-vote {
+    width: 100%;
+  }
+
+  .vote-button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+  }
+
+  /* LINE 2 stacks cleanly */
+  .event-line-2 {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    margin-top: 6px;
+  }
+
+  .event-note {
+    width: 100%;
+    font-size: 0.95rem;
+  }
+
+  .event-players,
+  .event-min {
+    font-size: 0.9rem;
   }
 }
