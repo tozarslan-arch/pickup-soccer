@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from datetime import datetime
+from datetime import datetime, timedelta
 from models import db, Location, Event, Vote
 
 app = Flask(__name__)
@@ -11,17 +11,19 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
-# Flask example
+# Allow iframe embedding (your existing header override)
 @app.after_request
 def add_header(response):
     response.headers['X-Frame-Options'] = 'ALLOWALL'
     return response
+
 
 @app.route("/", methods=["GET"])
 def index():
     locations = Location.query.order_by(Location.name).all()
     now = datetime.now()
 
+    # UPCOMING GAMES
     upcoming = (
         Event.query
         .filter(Event.date_time >= now)
@@ -29,11 +31,21 @@ def index():
         .all()
     )
 
+    # PAST GAMES — last 60 days only
+    cutoff = now - timedelta(days=60)
+
+    # AUTO-DELETE games older than 60 days
+    old_games = Event.query.filter(Event.date_time < cutoff).all()
+    for g in old_games:
+        db.session.delete(g)
+    db.session.commit()
+
+    # Load only the last 60 days
     past = (
         Event.query
         .filter(Event.date_time < now)
+        .filter(Event.date_time >= cutoff)
         .order_by(Event.date_time.desc())
-        .limit(5)
         .all()
     )
 
@@ -124,7 +136,6 @@ def delete_event(event_id):
     db.session.delete(event)
     db.session.commit()
     return redirect(url_for("index"))
-
 
 
 if __name__ == "__main__":
