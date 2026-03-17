@@ -58,8 +58,12 @@
 
   <!-- MANAGE LOCATIONS -->
   <section>
-    <h2>Manage Locations</h2>
+<section>
+  <h2 class="collapsible-header" onclick="toggleLocations()">
+    Manage Locations ▼
+  </h2>
 
+  <div id="manage-locations-box" class="collapsible-content">
     {% for loc in locations %}
       <form class="location-row" method="post" action="{{ url_for('edit_location', location_id=loc.id) }}">
         <input type="text" name="location_name" value="{{ loc.name }}" required>
@@ -73,6 +77,16 @@
           Delete
         </button>
       </form>
+    {% endfor %}
+
+    <h3>Add New Location</h3>
+    <form method="post" action="{{ url_for('add_location') }}">
+      <input type="text" name="location_name" placeholder="Location name" required>
+      <input type="text" name="location_address" placeholder="Address" required>
+      <button type="submit">Save Location</button>
+    </form>
+  </div>
+</section>
     {% endfor %}
 
     <!-- ADD NEW LOCATION (sub-section) -->
@@ -90,6 +104,12 @@
       box.style.display = box.style.display === "none" ? "block" : "none";
     }
   </script>
+<script>
+  function toggleLocations() {
+    const box = document.getElementById("manage-locations-box");
+    box.style.display = box.style.display === "none" ? "block" : "none";
+  }
+</script>
 
 </body>
 </html>
