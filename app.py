@@ -11,6 +11,11 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
+# Flask example
+@app.after_request
+def add_header(response):
+    response.headers['X-Frame-Options'] = 'ALLOWALL'
+    return response
 
 @app.route("/", methods=["GET"])
 def index():
@@ -119,6 +124,7 @@ def delete_event(event_id):
     db.session.delete(event)
     db.session.commit()
     return redirect(url_for("index"))
+
 
 
 if __name__ == "__main__":
