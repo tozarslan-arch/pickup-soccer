@@ -33,8 +33,11 @@
   <!-- LINE 2 -->
   <div class="event-line-2">
 
+    <!-- DEFAULT COMMENT LOGIC -->
     {% if e.note %}
       <span class="event-note">{{ e.note }}</span>
+    {% else %}
+      <span class="event-note">Bring both White and Dark shirts.</span>
     {% endif %}
 
     <span class="event-players">
