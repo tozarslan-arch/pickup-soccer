@@ -1,14 +1,14 @@
 <div class="event-card">
 
-  <!-- ONE-LINE HEADER -->
+  <!-- LINE 1 -->
   <div class="event-line">
 
-    <!-- STATUS FIRST -->
+    <!-- STATUS -->
     <span class="status-badge-inline {% if e.is_on %}on{% else %}pending{% endif %}">
       {% if e.is_on %}Game On!{% else %}Pending{% endif %}
     </span>
 
-    <!-- LOCATION NAME (CLICKABLE) -->
+    <!-- LOCATION (CLICKABLE) -->
     <a class="event-location-link"
        href="{{ e.location.address }}"
        target="_blank"
@@ -16,34 +16,34 @@
       {{ e.location.name }}
     </a>
 
-    <!-- DATE/TIME ON THE RIGHT -->
+    <!-- DATE/TIME -->
     <span class="event-datetime">
       {{ e.date_time.strftime("%a %b %d, %Y %I:%M %p") }}
     </span>
 
-  </div>
-
-  <!-- NOTE -->
-  {% if e.note %}
-    <div class="note">{{ e.note }}</div>
-  {% endif %}
-
-  <!-- STATUS ROW (VOTES, TARGET, I'M IN) -->
-  <div class="status-row">
-
-    {% if e.date_time >= now %}
-      <span>{{ e.vote_count }} playing</span>
-    {% endif %}
-
-    {% if e.target %}
-      <span>Min. no of Players: {{ e.target }}</span>
-    {% endif %}
-
+    <!-- I'M IN BUTTON (UPCOMING ONLY) -->
     {% if e.date_time >= now %}
       <form method="post" action="{{ url_for('vote_event', event_id=e.id) }}" class="inline-vote">
         <button type="submit" class="vote-button">I'm in</button>
       </form>
     {% endif %}
+
+  </div>
+
+  <!-- LINE 2 -->
+  <div class="event-line-2">
+
+    {% if e.note %}
+      <span class="event-note">{{ e.note }}</span>
+    {% endif %}
+
+    <span class="event-players">
+      {{ e.vote_count }} playing
+    </span>
+
+    <span class="event-min">
+      Min: {{ e.target }}
+    </span>
 
     {% if e.date_time < now %}
       <form method="post" action="{{ url_for('delete_event', event_id=e.id) }}" class="delete-inline">

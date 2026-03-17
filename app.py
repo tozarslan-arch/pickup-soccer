@@ -11,7 +11,6 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
-# Allow iframe embedding (your existing header override)
 @app.after_request
 def add_header(response):
     response.headers['X-Frame-Options'] = 'ALLOWALL'
@@ -23,7 +22,6 @@ def index():
     locations = Location.query.order_by(Location.name).all()
     now = datetime.now()
 
-    # UPCOMING GAMES
     upcoming = (
         Event.query
         .filter(Event.date_time >= now)
@@ -31,16 +29,13 @@ def index():
         .all()
     )
 
-    # PAST GAMES — last 60 days only
     cutoff = now - timedelta(days=60)
 
-    # AUTO-DELETE games older than 60 days
     old_games = Event.query.filter(Event.date_time < cutoff).all()
     for g in old_games:
         db.session.delete(g)
     db.session.commit()
 
-    # Load only the last 60 days
     past = (
         Event.query
         .filter(Event.date_time < now)
@@ -99,15 +94,16 @@ def delete_location(location_id):
 def add_event():
     location_id = request.form.get("location_id")
     date_str = request.form.get("date")
-    time_str = request.form.get("time")
+    time_str = request.form.get("time") or "10:00"  # DEFAULT TIME
     target_str = request.form.get("target")
     note = request.form.get("note", "").strip() or None
 
-    if not (location_id and date_str and time_str):
+    if not (location_id and date_str):
         return redirect(url_for("index"))
 
     dt = datetime.fromisoformat(f"{date_str}T{time_str}")
-    target = int(target_str) if target_str else None
+
+    target = int(target_str) if target_str else 8  # DEFAULT MIN PLAYERS
 
     event = Event(
         location_id=int(location_id),
