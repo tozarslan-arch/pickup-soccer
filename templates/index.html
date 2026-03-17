@@ -21,22 +21,22 @@
     {% endif %}
   </section>
 
-  <!-- PAST GAMES -->
+  <!-- PAST GAMES (only show if there are any) -->
+  {% if past|length > 0 %}
   <section>
     <h2 class="collapsible-header" onclick="togglePast()">
-      Past Games{% if past|length > 0 %} ({{ past|length }}){% endif %} ▼
+      Past Games ({{ past|length }}) ▼
     </h2>
 
     <div id="past-games" class="collapsible-content" style="display:none;">
-      {% if past %}
-        {% for e in past %}
-          {% include 'event_card.html' %}
-        {% endfor %}
-      {% else %}
-        <p>No past games yet.</p>
-      {% endif %}
+      {% for e in past %}
+        {% include 'event_card.html' %}
+      {% endfor %}
     </div>
   </section>
+  {% else %}
+    <p>No games in the last 60 days.</p>
+  {% endif %}
 
   <!-- CREATE GAME -->
   <section>
