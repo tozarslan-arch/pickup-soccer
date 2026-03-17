@@ -94,18 +94,25 @@ def delete_location(location_id):
 def add_event():
     location_id = request.form.get("location_id")
     date_str = request.form.get("date")
-    time_str = request.form.get("time") or "10:00"  # DEFAULT TIME
+
+    # DEFAULT TIME
+    time_str = request.form.get("time") or "10:00"
+
+    # DEFAULT MIN PLAYERS = 8
     target_str = request.form.get("target")
-    note = request.form.get("note", "").strip() or None
+    target = int(target_str) if target_str else 8
+
+    # NORMALIZE NOTE
+    note_raw = request.form.get("note", "")
+    note = note_raw.strip()
+    if not note:
+        note = None
 
     # Only require location + date
     if not (location_id and date_str):
         return redirect(url_for("index"))
 
     dt = datetime.fromisoformat(f"{date_str}T{time_str}")
-
-    # DEFAULT MIN PLAYERS = 8
-    target = int(target_str) if target_str else 8
 
     event = Event(
         location_id=int(location_id),
@@ -117,7 +124,6 @@ def add_event():
     db.session.add(event)
     db.session.commit()
     return redirect(url_for("index"))
-
 
 
 @app.route("/events/<int:event_id>/vote", methods=["POST"])
